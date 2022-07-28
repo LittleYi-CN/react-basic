@@ -1,19 +1,23 @@
-// react如何完成列表渲染
-// 技术方案: map 重复渲染的是哪个模板 就return谁
-// 注意事项：遍历列表时同样需要一个类型为number/string不可重复的key 提高diff性能
-// key仅仅在react框架内部使用，不会出现在真实的dom中
-const songs = [
-  { id: 1, name: '夜的第七章' },
-  { id: 2, name: '彩虹' },
-  { id: 3, name: '夜曲' }
-]
+// 条件渲染
+// 技术方案：1、三元表达式(常用) 2、逻辑&&运算
 
+// 1、三元表达式 - 满足条件才渲染一个span标签
+// const flag = true;
+// function App() {
+//   return(
+//     <div className="App">
+//       { flag ? (
+//         <div>
+//           <span>this is span</span>
+//         </div>) : null }
+//     </div>
+//   )
+// }
+// 2、逻辑 && 运算
 function App() {
   return(
     <div className="App">
-      <ul>
-        { songs.map(song => <li key={song.id}>{song.name}</li>) }
-      </ul>
+      { true && <span>this is another span</span> }
     </div>
   )
 }
