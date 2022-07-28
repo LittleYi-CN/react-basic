@@ -105,4 +105,59 @@ function App() {
 }
 ```
 
-## 5、动态类名控制
+## 5、样式控制
+两种样式
+1. 行内样式
+   - 在元素身上绑定一个style属性即可,需要使用驼峰fontSize。
+2. 类名样式
+   - 在元素身上绑定一个className属性即可
+#### 1、行内样式
+在元素身上绑定一个style属性即可,需要使用驼峰fontSize。
+```
+function App() {
+  return(
+    <div className="App">
+      <span style={{ color: 'red', fontSize: '30px' }}>this is span</span>
+    </div>
+  )
+}
+```
+style使用两个{{}}是因为外层的就是react的表达式所要使用的{},内层的{}表明是个对象。如果样式复杂可以将内部对象提取出来一个变量，直接引用变量。
+```
+const style = { color: 'red', fontSize: '30px' }
+function App() {
+  return(
+    <div className="App">
+      <span style={style}>this is span</span>
+    </div>
+  )
+}
+```
+#### 2、类名样式
+在元素身上绑定一个className属性即可。
+
+新建app.css
+```
+.active {
+  color: blue;
+}
+```
+app.js中引用此样式，在模板中使用className即可，注意是className不是class
+```
+import './app.css'
+const style = {
+  color: 'red',
+  fontSize: '30px'
+}
+function App() {
+  return(
+    <div className="App">
+      <span style={style}>this is span1</span>
+      <span style={{ color: 'red', fontSize: '30px' }}>this is span2</span>
+      <span className='active'>测试类名样式</span>
+    </div>
+  )
+}
+```
+
+## 6、动态类名控制

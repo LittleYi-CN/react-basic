@@ -1,26 +1,17 @@
-// 有一个状态type 1 2 3
-// 1 -> h1
-// 2 -> h2
-// 3 -> h3
-// 原则：模板中的逻辑尽量保持精简
-// 复杂的多分枝的逻辑 收敛为一个函数 通过一个专门的函数来写分支逻辑 模板中只调用函数
-const getHTag =(type) => {
-  if(type === 1) {
-    return <h1>this is h1</h1>
-  }
-
-  if(type === 2) {
-    return <h2>this is h2</h2>
-  }
-
-  if(type === 3) {
-    return <h3>this is h3</h3>
-  }
+// 样式控制
+// 1、行内样式 - 在元素身上绑定一个style属性即可,需要使用驼峰fontSize。可以提取出来一个变量，表达式内使用这个变量
+// 2、类名样式 - 在元素身上绑定一个className属性即可
+import './app.css'
+const style = {
+  color: 'red',
+  fontSize: '30px'
 }
 function App() {
   return(
     <div className="App">
-      { getHTag(1) }
+      <span style={style}>this is span1</span>
+      <span style={{ color: 'red', fontSize: '30px' }}>this is span2</span>
+      <span className='active'>测试类名样式</span>
     </div>
   )
 }
