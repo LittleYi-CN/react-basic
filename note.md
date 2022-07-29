@@ -546,3 +546,35 @@ function App () {
 2. 定义状态必须通过 state 实例属性的方法 提供一个对象 名称是固定的就叫做 state
 3. 修改 state 中的任何属性 都不可以通过直接赋值 必须走 setState 方法 这个方法来自于继承得到
 4. 这里的 this 关键词 很容易出现指向错误的问题 上面的写法是最推荐和最规范的 没有 this 指向问题
+
+## 18、状态修改 counter 案例
+
+```
+import React from "react"
+
+class Counter extends React.Component {
+  state = {
+    count: 0
+  }
+  handleCounter = () => {
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+  render () {
+    return (
+      <>
+        <div>{this.state.count}</div>
+        <button onClick={this.handleCounter}>点我加1</button>
+      </>
+    )
+  }
+}
+function App () {
+  return (
+    <>
+      <Counter></Counter>
+    </>
+  )
+}
+```
