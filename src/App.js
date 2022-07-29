@@ -1,15 +1,18 @@
-// 函数组件的创建和渲染
+import React from 'react'
+// 类组件的创建和渲染
 // 创建
-function Hello () {
-  return <div>Hello</div>
+class HelloComponent extends React.Component {
+  render () {
+    return <div>this is class component</div>
+  }
 }
-// 渲染 <Hello/> 或者 <Hello></Hello>
+// 渲染 <HelloComponent/> 或者 <HelloComponent></HelloComponent>
 function App () {
   return (
     <>
-      {/* 渲染Hello组件 */}
-      <Hello />
-      <Hello></Hello>
+      {/* 渲染HelloComponent组件 */}
+      <HelloComponent></HelloComponent>
+      <HelloComponent />
     </>
   )
 }
