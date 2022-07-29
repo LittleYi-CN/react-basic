@@ -1,11 +1,12 @@
 // 函数组件的创建和渲染
+// 如何传递自定义参数?
+// 1、只需要一个额外参数 {clickHandler} -> {() => clickHandler('自定义的参数')}
+// 2、既需要e也需要额外参数 {(e) => clickHandler(e, '自定义参数')}
 function Hello () {
-  const clickHandler = (e) => {
-    e.preventDefault()
-    console.log(e)
-    console.log('函数组件事件被触发')
+  const clickHandler = (e, msg) => {
+    console.log('函数组件事件被触发', e, msg)
   }
-  return <div><a onClick={clickHandler} href='https://www.baidu.com'>百度一下</a></div>
+  return <div onClick={(e) => clickHandler(e, 'this is msg')}>click me</div>
 }
 function App () {
   return (
