@@ -407,7 +407,7 @@ function App () {
 import React from 'react'
 // 函数组件的创建和渲染
 function Hello () {
-  function clickHandler () {
+  const clickHandler = () => {
     console.log('函数组件事件被触发')
   }
   return <div onClick={clickHandler}>Hello</div>
@@ -438,3 +438,27 @@ function App () {
 ```
 
 ## 14、组件-事件对象 e 说明
+
+- 通过事件处理程序的参数获取事件对象 e
+
+```
+// 函数组件的创建和渲染
+function Hello () {
+  const clickHandler = (e) => {
+    e.preventDefault()
+    console.log(e)
+    console.log('函数组件事件被触发')
+  }
+  return <div><a onClick={clickHandler} href='https://www.baidu.com'>百度一下</a></div>
+}
+function App () {
+  return (
+    <>
+      {/* 渲染函数组件 */}
+      <Hello></Hello>
+    </>
+  )
+}
+```
+
+## 15、组件-事件绑定传递额外参数
