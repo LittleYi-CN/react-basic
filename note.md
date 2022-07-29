@@ -395,3 +395,46 @@ function App () {
 3. 类组件必须提供 render 方法**render 方法必须有返回值，表示该组件的 UI 结构**
 
 ## 13、组件-事件绑定
+
+**如何绑定事件**
+
+- 语法
+  - on + 事件名称 = {事件处理程序}，比如：<div onClick={() => {}}></div>
+- 注意点
+  - react 事件采用驼峰命名法，比如：onMouseEnter、onFocus
+
+```
+import React from 'react'
+// 函数组件的创建和渲染
+function Hello () {
+  function clickHandler () {
+    console.log('函数组件事件被触发')
+  }
+  return <div onClick={clickHandler}>Hello</div>
+}
+// 类组件的创建和渲染
+// 创建
+class HelloComponent extends React.Component {
+  clickHandler () {
+    console.log('组件事件被触发')
+  }
+  render () {
+    return <div onClick={this.clickHandler}>this is class component</div>
+  }
+}
+// 渲染 <HelloComponent/> 或者 <HelloComponent></HelloComponent>
+function App () {
+  return (
+    <>
+      {/* 渲染函数组件 */}
+      <Hello></Hello>
+      <Hello />
+      {/* 渲染HelloComponent组件 */}
+      <HelloComponent></HelloComponent>
+      <HelloComponent />
+    </>
+  )
+}
+```
+
+## 14、组件-事件对象 e 说明
