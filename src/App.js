@@ -1,11 +1,15 @@
-
+// 函数组件的创建和渲染
+// 创建
+function Hello () {
+  return <div>Hello</div>
+}
+// 渲染 <Hello/> 或者 <Hello></Hello>
 function App () {
   return (
     <>
-      <div className="App">
-        <span>幽灵节点测试</span>
-      </div>
-      <div>幽灵节点测试</div>
+      {/* 渲染Hello组件 */}
+      <Hello />
+      <Hello></Hello>
     </>
   )
 }
