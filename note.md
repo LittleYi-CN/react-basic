@@ -612,3 +612,30 @@ function App () {
 ```
 
 ## 20、组件-this指向问题再说明
+- 如果不通过constructor做修正，直接可以在事件绑定的位置，通过箭头函数的写法，直接沿用父函数中的this指向也是ok的。
+- 父函数指的就是render函数，render函数已经在react内部被做了修正，这里面的this就是指向当前组件实例对象，箭头函数中的this，直接沿用，所以也是指向组件的实例对象。
+```
+import React from "react"
+
+// this 有问题的写法
+class Test extends React.Component {
+  handler() {
+    console.log(this)
+  }
+  render() {
+    console.log('父函数中的this指向为：', this)
+    return (
+      <button onClick={() => this.handler()}>点我查看this</button>
+    )
+  }
+}
+function App () {
+  return (
+    <>
+      <Test></Test>
+    </>
+  )
+}
+```
+
+## 21、知识点梳理总结
