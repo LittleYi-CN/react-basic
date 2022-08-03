@@ -578,3 +578,37 @@ function App () {
   )
 }
 ```
+
+## 19、组件-this 的指向问题说明
+如果不使用es6的箭头函数，需要手动绑定this，不然this为undefined
+```
+import React from "react"
+
+// this 有问题的写法
+class Test extends React.Component {
+  constructor() {
+    super()
+    // 使用bind强行修正this
+    // 相当于再类组件初始化的阶段 就可以把回调函数的this修正到
+    // 永远指向当前组件实例对象
+    this.handler = this.handler.bind(this)
+  }
+  handler() {
+    console.log(this)
+  }
+  render() {
+    return (
+      <button onClick={this.handler}>点我查看this</button>
+    )
+  }
+}
+function App () {
+  return (
+    <>
+    <Test></Test>
+    </>
+  )
+}
+```
+
+## 20、组件-this指向问题再说明

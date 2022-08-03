@@ -1,27 +1,27 @@
 import React from "react"
 
-class Counter extends React.Component {
-  state = {
-    count: 0
+// this 有问题的写法
+class Test extends React.Component {
+  constructor() {
+    super()
+    // 使用bind强行修正this
+    // 相当于再类组件初始化的阶段 就可以把回调函数的this修正到
+    // 永远指向当前组件实例对象
+    this.handler = this.handler.bind(this)
   }
-  handleCounter = () => {
-    this.setState({
-      count: this.state.count + 1
-    })
+  handler() {
+    console.log(this)
   }
-  render () {
+  render() {
     return (
-      <>
-        <div>{this.state.count}</div>
-        <button onClick={this.handleCounter}>点我加1</button>
-      </>
+      <button onClick={this.handler}>点我查看this</button>
     )
   }
 }
 function App () {
   return (
     <>
-      <Counter></Counter>
+    <Test></Test>
     </>
   )
 }
