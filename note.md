@@ -742,3 +742,82 @@ this.setState({
 3. 为input添加change事件
 4. 在事件处理程序中，通过事件对象e获取到当前文本框的值(即用户当前输入的值)
 5. 调用setState方法，将文本框的值作为state状态的最新值
+
+```
+import React from "react"
+
+class InputComponent extends React.Component {
+  // 1. 声明用来控制input value的react组件自己的状态
+  state = {
+    message: 'this is message'
+  }
+  // 回调函数
+  inputChange = (e) => {
+    // 4. 拿到输入框最新的值 交给state中的message
+    this.setState({
+      message: e.target.value
+    })
+  }
+  render() {
+    return (
+      // 2. 给input框的value属性绑定react state
+      // 3. 给input框绑定一个change的事件 为了拿到当前输入框中的数据
+      <>
+        <input
+          type='text'
+          value={this.state.message}
+          onChange={this.inputChange} />
+      </>
+    )
+  }
+}
+function App () {
+  return (
+    <>
+      <InputComponent></InputComponent>
+    </>
+  )
+}
+```
+
+## 24、表单-非受控组件
+> **非受控组件**  
+> 什么是非受控组件？  
+> 非受控组件就是通过手动操作dom的方式获取文本框的值，文本框的状态不受react组件的state中的状态控制，直接通过原生dom获取输入框的值。
+
+**实现步骤**
+1. 导入`createRef`函数
+2. 调用createRef函数，创建一个ref对象，存储到`msgRef`的实例属性中
+3. 为input添加ref属性，值为`msgRef`
+4. 在按钮的事件处理程序中，通过`msgRef.current`即可拿到input对应的dom元素，而其中`msgRef.current.value`拿到的就是文本框的值
+
+```
+import React, { createRef } from "react"
+
+class Input extends React.Component {
+  msgRef = createRef()
+  getValue = () => {
+    console.log(this.msgRef.current.value)
+  }
+  render() {
+    return (
+      <>
+        <input
+          type='text'
+          ref={this.msgRef}
+          />
+        <div>
+          <button onClick={this.getValue}>点我获取input值</button>
+        </div>
+      </>
+    )
+  }
+}
+function App () {
+  return (
+    <>
+      <Input></Input>
+    </>
+  )
+}
+```
