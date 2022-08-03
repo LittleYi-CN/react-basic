@@ -1,40 +1,26 @@
 import React from "react"
 
-class State extends React.Component {
+class InputComponent extends React.Component {
+  // 1. 声明用来控制input value的react组件自己的状态
   state = {
-    count: 1,
-    list: [1,2,3],
-    person: {
-      name: 'jack',
-      age: 18
-    }
+    message: 'this is message'
   }
-  handleClick = () => {
+  // 回调函数
+  inputChange = (e) => {
+    // 4. 拿到输入框最新的值 交给state中的message
     this.setState({
-      count: this.state.count +1,
-      list: [ ...this.state.list, 4,5 ],
-      person: {
-        ...this.state.person,
-        name: 'rose',
-        age: 19
-      }
-    })
-    this.setState({
-      list: this.state.list.filter(item => item !== 2)
+      message: e.target.value
     })
   }
   render() {
     return (
+      // 2. 给input框的value属性绑定react state
+      // 3. 给input框绑定一个change的事件 为了拿到当前输入框中的数据
       <>
-        <div>{this.state.count}</div>
-        <ul>
-          {this.state.list.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-        <div>name: {this.state.person.name}</div>
-        <div>age: {this.state.person.age}</div>
-        <button onClick={this.handleClick}>changeState</button>
+        <input
+          type='text'
+          value={this.state.message}
+          onChange={this.inputChange} />
       </>
     )
   }
@@ -42,7 +28,7 @@ class State extends React.Component {
 function App () {
   return (
     <>
-      <State></State>
+      <InputComponent></InputComponent>
     </>
   )
 }
