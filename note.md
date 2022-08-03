@@ -693,3 +693,41 @@ function App () {
     - 推荐；使用箭头函数形式的实例方法 handleClick = () => {}
     - 在render中额外包裹一层箭头函数
     - bind
+
+## 22、组件-状态不可变说明
+> 概念：不要直接修改状态的值，而是基于当前状态创建新的状态值
+1. 错误的直接修改
+```
+state = {
+  count: 0,
+  list: [1,2,3],
+  person: {
+    name: 'jack',
+    age: 18
+  }
+}
+<!-- 直接修改简单类型Number -->
+this.state.count++
+++this.state.count
+this.state.count += 1
+this.state.count = 1
+<!-- 直接修改数组 -->
+this.state.list.push(123)
+this.state.list.splice(1,1)
+<!-- 直接修改对象 -->
+this.state.person.name = 'rose'
+```
+2. 基于当前状态创建新值
+```
+this.setState({
+  count: this.state.count + 1,
+  list: [...this.state.list, 4],
+  person: {
+    ...this.state.person,
+    // 覆盖原来的属性，就可以达到修改对象中属性的目的
+    name: 'rose'
+  }
+})
+```
+
+## 23、表单-受控组件
