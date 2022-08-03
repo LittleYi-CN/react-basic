@@ -639,3 +639,57 @@ function App () {
 ```
 
 ## 21、知识点梳理总结
+- React介绍
+  - 用户构建用户界面(UI)的JS库，简单理解就是写页面的JS库
+  - 特点
+    - 声明式
+      - 对比命令式
+      - 声明式：what
+      - 命令式：how
+    - 组件化
+    - 跨平台
+      - 不仅可以开发web端应用
+      - 还可以开发移动端安卓、ios应用 react-native
+      - VR应用 react-360
+  - 创建react项目 npx create-react-app 项目名称
+- JSX
+  - JSX是什么 在js中写HTML标签(页面结构)
+  - 幽灵节点
+    - <></>
+    - 不额外的生产标签，可以同时渲染多个标签
+  - 使用JS表达式 语法：{}
+  - JS表达式
+    - 特定：有值
+    - 如何验证是不是表达式？技巧：能够通过console.log(表达式)打印出的内容就是表达式
+  - 条件渲染
+    - 三元表达式
+    - 函数 + if/else
+    - 逻辑与(&&)
+  - 列表渲染
+    - 使用数组的map方法
+    - 列表渲染需要给每个元素添加key属性
+    - key要唯一(number/string)
+  - 样式
+    - 行内样式 style={{width: 50px;}}
+    - 推荐：className
+- 组件基本使用
+  - React的两种组件
+    - 函数组件
+    - 类组件
+  - 两种组件的区别
+    - 有没有状态
+    - 函数组件，没有状态，也叫：无状态组件 负责静态结构的展示
+    - class组件，有状态，也叫：有状态组件 提供状态，提供交互
+  - 状态state也就是数据 数据是私有de
+  - 绑定事件语法
+    - on + 事件名称={事件处理程序}
+      - onClick = {() => {}}
+      - onClick = {this.handleClick}
+      - onClick = {() => this.handleClick()}
+    - onMouseEnter
+    - onClick
+  - 事件对象 通过事件处理程序的参数拿到事件对象
+  - 事件处理程序中this指向问题
+    - 推荐；使用箭头函数形式的实例方法 handleClick = () => {}
+    - 在render中额外包裹一层箭头函数
+    - bind
