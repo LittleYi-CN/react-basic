@@ -1349,3 +1349,36 @@ class App extends React.Component {
   }
 }
 ```
+
+## 35、组件进阶-props类型校验基础使用
+为了防止props类型错误，增加组件的健壮性  
+**实现步骤**  
+1. 安装属性校验包：`yarn add prop-types`
+2. 导入`prop-types`包
+3. 使用组件名.propTypes = {}给组件添加校验规则
+```
+import React from "react"
+import PropTypes from 'prop-types'
+
+function Test({list}) {
+  return (
+    <>
+      <div>this is Test</div>
+      {list.map(item => <span key={item}>{item}</span>)}
+    </>
+  )
+}
+
+Test.propTypes = {
+  list: PropTypes.array
+}
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Test list={9} />
+      </>
+    )
+  }
+}
+```
