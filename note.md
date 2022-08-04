@@ -1167,3 +1167,71 @@ class App extends React.Component {
   }
 }
 ```
+## 32、组件通信-Context实现跨组件传递数据
+> **场景**  
+> 如果想从App组件向任意一个下层组件传递数据，目前只能通过props一层一层往下传，很繁琐。  
+> Context提供了一个**无需为每层组件手动添加props，就能在组件树间进行数据和传递的方法**  
+
+**实现步骤**
+1. 创建Context对象 导出Provider和Consumer对象
+```
+const { Provider, Consumer } = createContext()
+```
+2. 使用Provider包裹根组件提供数据
+```
+<Provider value={this.state.message}>
+  {/* 根组件 */}
+</Provider>
+```
+3. 需要用到数据的组件使用Consumer包裹获取数据
+```
+<Consumer>
+  {value => /* 基于 context 值进行渲染 */}
+</Consumer>
+```
+```
+import React, { createContext } from "react"
+// App -> A -> B
+// App数据 -> C
+// 1.导入createContext方法并执行，结构提供者和消费者
+
+const { Provider, Consumer } = createContext()
+
+function ComA() {
+  return (
+    <>
+      <div>this is A</div>
+      <ComB />
+    </>
+  )
+}
+
+function ComB() {
+  return (
+    <>
+      <div>this is B</div>
+      {/* 通过Consumer使用数据 */}
+      <Consumer>
+        {value => <span>{value}</span>}
+      </Consumer>
+    </>
+  )
+}
+
+class App extends React.Component {
+  state = {
+    message: 'this is message'
+  }
+  render() {
+    return (
+      // 2. 使用Provider包裹根组件
+      <Provider value={this.state.message}>
+        <ComA />
+      </Provider>
+    )
+  }
+}
+```
+**注意事项**
+1. 上层组件和下层组件关系是相对的只要存在就可以使用 通常都会通过App作为数据提供方
+2. 这里涉及到的语法都是固定的，又两处，提供的位置 value提供数据 获取的位置 {value => 使用value做什么都可以}
