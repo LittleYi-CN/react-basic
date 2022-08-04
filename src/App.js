@@ -1,43 +1,46 @@
 import React from "react"
-// Son 子组件
-// 父传子 props 函数
-// 子传父：子组件调用父组件传递过来的函数，并且把想要传递的数据当成函数的实参传入即可
-// function Son({getSonMsg}) {
-//   function clickHandler() {
-//     getSonMsg('这里是子组件传递的数据')
-//   }
-//   return (
-//     <>
-//       <div>this is son</div>
-//       <button onClick={clickHandler}>传给父亲的数据</button>
-//     </>
-//   )
-// }
-class Son extends React.Component {
-  clickHandler = () => {
-    const msg = '这是子组件的数据lala'
-    this.props.getSonMsg(msg)
-  }
-  render() {
-    return (
-      <>
-        <div>这是子组件</div>
-        <button onClick={this.clickHandler}>子传父</button>
-      </>
-    )
-  }
+// 目标：B组件中的数据传给A
+// 技术方案：
+// 1、先把B中的数据通过子传父 传给App
+// 2、再把App接收到的Son中的数据 通过父传子 传给A
+
+function SonA({bMsg}) {
+  return (
+    <>
+      <div>this is A</div>
+      <div>{bMsg}</div>
+    </>
+  )
 }
 
-// App父组件
+function SonB({getMsg}) {
+  const bMsg = '这是B组件中的数据'
+  function clickHandler() {
+    getMsg(bMsg)
+  }
+  return (
+    <>
+      <div>this is B</div>
+      <button onClick={clickHandler}>B发送数据</button>
+    </>
+  )
+}
+
 class App extends React.Component {
-  // 1、准备一个函数 传给子组件
-  getSonMsg = (sonMsg) => {
-    console.log(sonMsg)
+  state = {
+    bMsg: ''
+  }
+  // 声明一个传给B组件的方法
+  getMsg = (msg) => {
+    this.setState({
+      bMsg: msg
+    })
   }
   render() {
     return (
       <>
-        <Son getSonMsg={this.getSonMsg} />
+        <SonA bMsg={this.state.bMsg} />
+        <SonB getMsg={this.getMsg} />
       </>
     )
   }

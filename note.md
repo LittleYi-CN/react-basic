@@ -1109,3 +1109,61 @@ class App extends React.Component {
   }
 }
 ```
+
+## 31、组件通信-兄弟通信实现
+> **核心思路**：通过状态提升机制，利用共同的父组件实现兄弟通信
+**实现步骤**
+1. 将共享状态提升到最近的公共父组件中，又公共父组件管理这个状态
+   - 提供共享状态
+   - 提供操作共享状态的方法
+2. 要接收数据状态的子组件通过props接收数据
+3. 要传递数据状态的子组件通过props接收方法，调用方法传递数据
+```
+import React from "react"
+// 目标：B组件中的数据传给A
+// 技术方案：
+// 1、先把B中的数据通过子传父 传给App
+// 2、再把App接收到的Son中的数据 通过父传子 传给A
+
+function SonA({bMsg}) {
+  return (
+    <>
+      <div>this is A</div>
+      <div>{bMsg}</div>
+    </>
+  )
+}
+
+function SonB({getMsg}) {
+  const bMsg = '这是B组件中的数据'
+  function clickHandler() {
+    getMsg(bMsg)
+  }
+  return (
+    <>
+      <div>this is B</div>
+      <button onClick={clickHandler}>B发送数据</button>
+    </>
+  )
+}
+
+class App extends React.Component {
+  state = {
+    bMsg: ''
+  }
+  // 声明一个传给B组件的方法
+  getMsg = (msg) => {
+    this.setState({
+      bMsg: msg
+    })
+  }
+  render() {
+    return (
+      <>
+        <SonA bMsg={this.state.bMsg} />
+        <SonB getMsg={this.getMsg} />
+      </>
+    )
+  }
+}
+```
