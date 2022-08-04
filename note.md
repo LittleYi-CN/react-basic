@@ -1280,3 +1280,72 @@ class App extends React.Component {
   }
 }
 ```
+
+## 34、组件进阶-特殊的children属性
+**children属性是什么**  
+表示组件的子节点，只要组件内部有子节点，props中就有该属性  
+**children可以是什么**  
+1. 普通文本
+2. 普通标签元素
+3. 函数
+4. JSX
+```
+import React from "react"
+
+// 普通文本
+// function ListItem({children}) {
+//   return(
+//     <>
+//       <div>this is ListItem</div>
+//       <div>{children}</div>
+//     </>
+//   )
+// }
+
+// 普通标签
+// function ListItem({children}) {
+//   return (
+//     <>
+//       <div>this is ListItem</div>
+//       {children}
+//     </>
+//   )
+// }
+
+// 函数
+// function ListItem({children}) {
+//   children()
+//   return (
+//     <>
+//       <div>this is ListItem</div>
+//     </>
+//   )
+// }
+
+// JSX
+function ListItem({children}) {
+  return (
+    <>
+      <div>this is ListItem</div>
+      {children}
+    </>
+  )
+}
+
+// 数据提供者 渲染ListItem组件 App-ListItem
+// 先不抽离组件 完成基础渲染后再去抽离
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <ListItem>
+          {/* this is children */}
+          {/* <div>this is children</div> */}
+          {/* {() => console.log('函数')} */}
+          {<h1>this is children</h1>}
+        </ListItem>
+      </>
+    )
+  }
+}
+```
