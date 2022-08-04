@@ -831,7 +831,7 @@ function App () {
 2. 兄弟关系 - 自定义事件模式产生技术方法 eventBus / 通过共同的父组件通信
 3. 其它关系 - mobx / redux / 基于hook的方案
 
-## 26、父传子实现
+## 26、组件通信-父传子-基础实现
 **实现步骤**
 1. 父组件提供要传递的数据 - state
 2. 给子组件标签`添加属性`值为state中的数据
@@ -874,3 +874,86 @@ class App extends React.Component {
   }
 }
 ```
+
+## 27、组件通信-父传子-props说明
+1. **props是只读对象(readonly)**
+   - 根据单项数据流的要求，子组件只能读取props中的数据，不能进行修改
+2. **props可以传递任意数据**
+   - 数字、字符串、布尔值、数组、对象、`函数、JSX`
+```
+import React from "react"
+
+// 函数式的son
+function SonF(props) {
+  console.log(props)
+  return (
+    <>
+      <div>函数子组件, {props.msg}</div>
+      <div>父组件的list{props.list.map(item => <p key={item}>{item}</p>)}</div>
+      <div>{props.userInfo.name}</div>
+      <div>{props.userInfo.age}</div>
+      <button onClick={() => props.getMsg()}>执行父组件中的函数</button>
+      {props.child}
+    </>
+  )
+}
+
+// 类组件的son
+class SonC extends React.Component {
+  render() {
+    return (
+      <>
+        <div>类子组件, {this.props.msg}</div>
+        <ul>
+          {this.props.list.map(item => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <div>{this.props.userInfo.name}</div>
+        <div>{this.props.userInfo.age}</div>
+        <button onClick={() => this.props.getMsg()}>执行父组件中的函数</button>
+        {this.props.child}
+      </>
+    )
+  }
+}
+
+// App 父组件 Son 子组件
+class App extends React.Component {
+  state = {
+    message: 'this is message',
+    list: [1,2,3],
+    userInfo: {
+      name: 'yi',
+      age: 27
+    }
+  }
+  getMsg = () => {
+    console.log(this.state.message)
+  }
+  render() {
+    return (
+      <>
+        <div>父组件</div>
+        {/* 子组件身上绑定属性 属性名可以自定义 保持语义化 */}
+        <SonF
+          msg={this.state.message}
+          list={this.state.list}
+          userInfo={this.state.userInfo}
+          getMsg={this.getMsg}
+          child={<span>this is span</span>}
+          />
+        <SonC
+          msg={this.state.message}
+          list={this.state.list}
+          userInfo={this.state.userInfo}
+          getMsg={this.getMsg}
+          child={<span>this is span</span>}
+          />
+      </>
+    )
+  }
+}
+```
+
+## 28、组件通信-父传子-props解构
