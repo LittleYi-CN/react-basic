@@ -1382,3 +1382,37 @@ class App extends React.Component {
   }
 }
 ```
+
+## 36、组件进阶-props类型校验整体说明
+**四种常见结构**  
+1. 常见类型：array、bool、func、number、object、string
+2. React元素类型：element
+3. 必填项：isRequired
+4. 特定的结构对象：shape({})
+```
+import React from "react"
+import PropTypes from 'prop-types'
+
+function Test() {
+  return (
+    <>
+      <div>this is Test</div>
+    </>
+  )
+}
+
+Test.propTypes = {
+  list: PropTypes.array.isRequired
+}
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Test />
+      </>
+    )
+  }
+}
+```
+
+## 37、组件进阶-函数组件props默认值
