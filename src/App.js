@@ -2,37 +2,29 @@ import React from "react"
 
 // 函数式的son
 function SonF(props) {
-  console.log(props)
+  const { msg, list, userInfo, getMsg, child } = props
   return (
     <>
-      <div>函数子组件, {props.msg}</div>
-      <div>父组件的list{props.list.map(item => <p key={item}>{item}</p>)}</div>
-      <div>{props.userInfo.name}</div>
-      <div>{props.userInfo.age}</div>
-      <button onClick={() => props.getMsg()}>执行父组件中的函数</button>
-      {props.child}
+      <div>函数子组件, {msg}</div>
+      <div>父组件的list{list.map(item => <p key={item}>{item}</p>)}</div>
+      <div>{userInfo.name}</div>
+      <div>{userInfo.age}</div>
+      <button onClick={() => getMsg()}>执行父组件中的函数</button>
+      {child}
     </>
   )
 }
-
-// 类组件的son
-class SonC extends React.Component {
-  render() {
-    return (
-      <>
-        <div>类子组件, {this.props.msg}</div>
-        <ul>
-          {this.props.list.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-        <div>{this.props.userInfo.name}</div>
-        <div>{this.props.userInfo.age}</div>
-        <button onClick={() => this.props.getMsg()}>执行父组件中的函数</button>
-        {this.props.child}
-      </>
-    )
-  }
+function SonF2({ msg, list, userInfo, getMsg, child }) {
+  return (
+    <>
+      <div>函数子组件, {msg}</div>
+      <div>父组件的list{list.map(item => <p key={item}>{item}</p>)}</div>
+      <div>{userInfo.name}</div>
+      <div>{userInfo.age}</div>
+      <button onClick={() => getMsg()}>执行父组件中的函数</button>
+      {child}
+    </>
+  )
 }
 
 // App 父组件 Son 子组件
@@ -60,7 +52,7 @@ class App extends React.Component {
           getMsg={this.getMsg}
           child={<span>this is span</span>}
           />
-        <SonC
+        <SonF2
           msg={this.state.message}
           list={this.state.list}
           userInfo={this.state.userInfo}
