@@ -1,41 +1,41 @@
-import React, { createContext } from "react"
-// App -> A -> B
-// App数据 -> C
-// 1.导入createContext方法并执行，结构提供者和消费者
+import React from "react"
 
-const { Provider, Consumer } = createContext()
-
-function ComA() {
-  return (
+function ListItem({item,delItem}) {
+  function clickHandler() {
+    delItem(item.id)
+  }
+  return(
     <>
-      <div>this is A</div>
-      <ComB />
+      <h3>{item.name}</h3>
+      <p>{item.price}</p>
+      <p>{item.info}</p>
+      <button onClick={clickHandler}>删除</button>
     </>
   )
 }
 
-function ComB() {
-  return (
-    <>
-      <div>this is B</div>
-      {/* 通过Consumer使用数据 */}
-      <Consumer>
-        {value => <span>{value}</span>}
-      </Consumer>
-    </>
-  )
-}
-
+// 数据提供者 渲染ListItem组件 App-ListItem
+// 先不抽离组件 完成基础渲染后再去抽离
 class App extends React.Component {
   state = {
-    message: 'this is message'
+    list: [
+      { id: 1, name: '超级好吃的棒棒糖', price: 18.8, info: '开业大酬宾，全场8折' },
+      { id: 2, name: '超级好吃的大鸡腿', price: 34.2, info: '开业大酬宾，全场8折' },
+      { id: 3, name: '超级无敌的冰激凌', price: 14.2, info: '开业大酬宾，全场8折' }
+    ]
+  }
+  delItem = (id) => {
+    this.setState({
+      list: this.state.list.filter(item => item.id !== id)
+    })
   }
   render() {
     return (
-      // 2. 使用Provider包裹根组件
-      <Provider value={this.state.message}>
-        <ComA />
-      </Provider>
+      <>
+        {this.state.list.map(item => (
+          <ListItem key={item.id} item={item} delItem={this.delItem}/>
+        ))}
+      </>
     )
   }
 }

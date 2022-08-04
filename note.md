@@ -1235,3 +1235,48 @@ class App extends React.Component {
 **注意事项**
 1. 上层组件和下层组件关系是相对的只要存在就可以使用 通常都会通过App作为数据提供方
 2. 这里涉及到的语法都是固定的，又两处，提供的位置 value提供数据 获取的位置 {value => 使用value做什么都可以}
+
+## 33、组件基础阶段小练习
+```
+import React from "react"
+
+function ListItem({item,delItem}) {
+  function clickHandler() {
+    delItem(item.id)
+  }
+  return(
+    <>
+      <h3>{item.name}</h3>
+      <p>{item.price}</p>
+      <p>{item.info}</p>
+      <button onClick={clickHandler}>删除</button>
+    </>
+  )
+}
+
+// 数据提供者 渲染ListItem组件 App-ListItem
+// 先不抽离组件 完成基础渲染后再去抽离
+class App extends React.Component {
+  state = {
+    list: [
+      { id: 1, name: '超级好吃的棒棒糖', price: 18.8, info: '开业大酬宾，全场8折' },
+      { id: 2, name: '超级好吃的大鸡腿', price: 34.2, info: '开业大酬宾，全场8折' },
+      { id: 3, name: '超级无敌的冰激凌', price: 14.2, info: '开业大酬宾，全场8折' }
+    ]
+  }
+  delItem = (id) => {
+    this.setState({
+      list: this.state.list.filter(item => item.id !== id)
+    })
+  }
+  render() {
+    return (
+      <>
+        {this.state.list.map(item => (
+          <ListItem key={item.id} item={item} delItem={this.delItem}/>
+        ))}
+      </>
+    )
+  }
+}
+```
