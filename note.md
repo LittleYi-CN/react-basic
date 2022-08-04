@@ -1024,3 +1024,40 @@ class App extends React.Component {
   }
 }
 ```
+
+## 29、组件通信-子传父-基础实现
+> 父组件给子组件传递回调函数，子组件调用
+**实现步骤**
+1. 父组件提供一个回调函数 - 用于接收数据
+2. 将函数作为属性的值，传给子组件
+3. 子组件通过props调用 回调函数
+4. 将子组件中的数据作为参数传递给回调函数
+```
+import React from "react"
+// Son 子组件
+// 父传子 props 函数
+// 子传父：子组件调用父组件传递过来的函数，并且把想要传递的数据当成函数的实参传入即可
+function Son({getSonMsg}) {
+  return (
+    <>
+      <div>this is son</div>
+      <button onClick={() => getSonMsg('子组件的数据')}>传给父亲的数据</button>
+    </>
+  )
+}
+
+// App父组件
+class App extends React.Component {
+  // 1、准备一个函数 传给子组件
+  getSonMsg = (sonMsg) => {
+    console.log(sonMsg)
+  }
+  render() {
+    return (
+      <>
+        <Son getSonMsg={this.getSonMsg} />
+      </>
+    )
+  }
+}
+```

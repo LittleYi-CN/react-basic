@@ -1,64 +1,26 @@
 import React from "react"
-
-// 函数式的son
-function SonF(props) {
-  const { msg, list, userInfo, getMsg, child } = props
+// Son 子组件
+// 父传子 props 函数
+// 子传父：子组件调用父组件传递过来的函数，并且把想要传递的数据当成函数的实参传入即可
+function Son({getSonMsg}) {
   return (
     <>
-      <div>函数子组件, {msg}</div>
-      <div>父组件的list{list.map(item => <p key={item}>{item}</p>)}</div>
-      <div>{userInfo.name}</div>
-      <div>{userInfo.age}</div>
-      <button onClick={() => getMsg()}>执行父组件中的函数</button>
-      {child}
-    </>
-  )
-}
-function SonF2({ msg, list, userInfo, getMsg, child }) {
-  return (
-    <>
-      <div>函数子组件, {msg}</div>
-      <div>父组件的list{list.map(item => <p key={item}>{item}</p>)}</div>
-      <div>{userInfo.name}</div>
-      <div>{userInfo.age}</div>
-      <button onClick={() => getMsg()}>执行父组件中的函数</button>
-      {child}
+      <div>this is son</div>
+      <button onClick={() => getSonMsg('子组件的数据')}>传给父亲的数据</button>
     </>
   )
 }
 
-// App 父组件 Son 子组件
+// App父组件
 class App extends React.Component {
-  state = {
-    message: 'this is message',
-    list: [1,2,3],
-    userInfo: {
-      name: 'yi',
-      age: 27
-    }
-  }
-  getMsg = () => {
-    console.log(this.state.message)
+  // 1、准备一个函数 传给子组件
+  getSonMsg = (sonMsg) => {
+    console.log(sonMsg)
   }
   render() {
     return (
       <>
-        <div>父组件</div>
-        {/* 子组件身上绑定属性 属性名可以自定义 保持语义化 */}
-        <SonF
-          msg={this.state.message}
-          list={this.state.list}
-          userInfo={this.state.userInfo}
-          getMsg={this.getMsg}
-          child={<span>this is span</span>}
-          />
-        <SonF2
-          msg={this.state.message}
-          list={this.state.list}
-          userInfo={this.state.userInfo}
-          getMsg={this.getMsg}
-          child={<span>this is span</span>}
-          />
+        <Son getSonMsg={this.getSonMsg} />
       </>
     )
   }
