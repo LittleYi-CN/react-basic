@@ -1613,3 +1613,33 @@ class App extends React.Component {
   }
 }
 ```
+
+## 42、阶段性重点内容总结
+- Context机制
+  - 场景： 跨组件通信 顶层向任意底层传递数据
+  - 实现
+    - 1.调用createContext方法 得到Provider和Consumer
+    - 2.通过Provider包裹顶层组件 value属性绑定数据
+    - 3.通过Consumer包裹底层组件{value => 消费数据}
+- 组件children属性
+  - 概念：组件内部写的内容都会识别人children属性存入props
+  - 支持：文本、标签、JSX、函数
+  - 应用场景：render Props和高阶函数
+- props校验
+  - 场景：在用户传入数据时提供类型校验（常见于组件库）
+  - 如何实现：通过prop-types官方工具包 组件名.propTypes = {定义规则}
+- props默认值
+  - 场景：如果想传入就以传入的参数为主，如果不传就使用默认值
+  - 函数组件 - 通过函数默认参实现 function List({pageSize = 10}){}
+  - 类组件 static defaultProps = {pageSize = 10}
+- 生命周期
+  - 挂载阶段（按顺序执行一次）
+    - constructor
+    - render（渲染）
+    - componentDidMount ajax/dom
+  - 更新阶段（只要组件更新就会执行）
+    - render
+    - componentDidUpdate
+  - 卸载阶段（组件被销毁时执行一次）
+    - componentDidUnmount 清除操作
+  - 注意事项：不可以在render/componentDidUpdate中执行setState
