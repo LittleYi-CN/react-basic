@@ -1666,3 +1666,27 @@ Hooks的出现解决了两个问题
 2. 解决业务逻辑难以拆分的问题
 3. 使状态逻辑复用变得简单可行
 4. 函数组件在设计思想上，更加契合React的理念
+
+## 44、hook-useState-基础使用
+1. 导入useState函数 react
+2. 执行这个函数并且传入初始值 必须在函数组件中
+3. [数据，修改数据的方法]
+4. 使用数据 修改数据
+```
+// useState
+// 1. 导入useState函数 react
+// 2. 执行这个函数并且传入初始值 必须在函数组件中
+// 3. [数据，修改数据的方法]
+// 4. 使用数据 修改数据
+
+import {useState} from 'react'
+
+function App() {
+  const [la,setLa] = useState(0)
+  return (
+    <>
+      <button onClick={() => setLa(la + 1)}>{la}</button>
+    </>
+  )
+}
+```
