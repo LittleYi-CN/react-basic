@@ -1495,3 +1495,14 @@ class App extends React.Component {
 > 组件的生命周期是指组件从被创建到挂载到页面中运行起来，再到组件不用时卸载的过程，注意，只有类组件才有生命周期（类组件 实例化 函数组件 不需要实例化）  
 
 [https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+## 40、组件生命周期-挂载阶段
+![](https://cdn.nlark.com/yuque/0/2022/png/274425/1654490729034-d2d80cce-7fab-4dd8-bcbc-29e33bdffb63.png)  
+|钩子函数|触发时机|作用|
+|----|----|----|
+|constructor|创建组件时，最先执行，初始化的时候只执行一次|1.初始化state 2.创建ref 3.使用bind解决this指向问题等|
+|render|每次组件渲染都会触发|渲染UI（**注意：不能在里面调用setState**）|
+|componentDidMount|组件挂载（完成DOM渲染）后执行，初始化的时候执行一次|1.发送网络请求 2.DOM操作|
+||||
+
+## 41、组件生命周期-更新和卸载时
