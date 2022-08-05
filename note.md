@@ -1643,3 +1643,26 @@ class App extends React.Component {
   - 卸载阶段（组件被销毁时执行一次）
     - componentDidUnmount 清除操作
   - 注意事项：不可以在render/componentDidUpdate中执行setState
+
+## 43、hook-产生背景和优势
+### 1.**什么时hooks**
+> hooks的本质：**一套能够使函数组件更强大，更灵活的钩子**  
+React体系里组件分为类组件和函数组件  
+函数组件时一个更加匹配React的设计理念`UI = f(data)`，而之前的函数组件是不可以有自己的状态的，为了能让函数组件可以拥有自己的状态，所以从react v16.8开始，hooks出现。  
+**注意点**
+1. 有了hooks之后，为了兼容老版本，class类组件并没有被移除，两者都可以使用
+2. 有了hooks之后，不能再把函数称为无状态组件了，因为hooks为函数组件提供了状态
+3. hooks只能再函数组件中使用
+
+### 2.Hooks解决了什么问题
+Hooks的出现解决了两个问题
+1. 组件的逻辑复用
+  - 在hooks出现之前，react先后尝试了mixins混入，HOC高阶组件，render-props等模式，但是都有各自的问题，比如mixin的数据来源不清晰，高阶组件的嵌套问题等
+2. class组件自身的问题
+  - class组件大而全，提供了很多东西，有不可忽视的学习成本，比如各种生命周期，this指向问题等
+
+### 3.Hooks优势总结
+1. 告别难以理解的class
+2. 解决业务逻辑难以拆分的问题
+3. 使状态逻辑复用变得简单可行
+4. 函数组件在设计思想上，更加契合React的理念
