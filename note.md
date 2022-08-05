@@ -1504,5 +1504,112 @@ class App extends React.Component {
 |render|每次组件渲染都会触发|渲染UI（**注意：不能在里面调用setState**）|
 |componentDidMount|组件挂载（完成DOM渲染）后执行，初始化的时候执行一次|1.发送网络请求 2.DOM操作|
 ||||
+```
+import React from "react"
+
+class App extends React.Component {
+  constructor() {
+    super()
+    console.log('constructor')
+  }
+  state = {
+    count: 0
+  }
+  clickHandler = () => {
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+  componentDidMount() {
+    console.log('componentDidMount')
+    // 类似于mounted
+  }
+  render() {
+    console.log('render')
+    return (
+      <>
+        <div>this is App</div>
+        <div>{this.state.count}</div>
+        <button onClick={this.clickHandler}>点我加一</button>
+      </>
+    )
+  }
+}
+```
 
 ## 41、组件生命周期-更新和卸载时
+### 更新阶段
+![](https://cdn.nlark.com/yuque/0/2022/png/274425/1654490742583-b933202d-3de7-41ae-b9ba-75ae1d2af34c.png)  
+|钩子函数|触发时机|作用|
+|----|----|----|
+|render|每次组件渲染都会触发|渲染UI（与挂载阶段是同一个render）|
+|componentDidUpdate|组件更新后（DOM渲染完毕）|DOM操作，可以获取到更新后的DOM内容，**不要直接调用setState**|
+||||
+
+### 卸载阶段
+|钩子函数|触发时机|作用|
+|----|----|----|
+|componentWillUnmount|组件卸载（从页面中消失）|执行清理工作（比如：清理定时器）|
+
+```
+import React from "react"
+
+class Test extends React.Component{
+  // 如果数据是组件的状态需要去影响视图 定义到state中
+  // 而如果我们需要的数据状态 不和视图绑定 定义成一个普通的实例属性就可以了
+  // state中尽量保持精简
+  timer = null
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      console.log(1)
+    }, 1000);
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+    // 清理定时器
+    clearInterval(this.timer)
+  }
+  render(){
+    return (
+      <>
+        <div>Test</div>
+      </>
+    )
+  }
+}
+
+class App extends React.Component {
+  constructor() {
+    super()
+    console.log('constructor')
+  }
+  state = {
+    count: 0,
+    flag: true
+  }
+  clickHandler = () => {
+    this.setState({
+      count: this.state.count + 1,
+      flag: !this.state.flag
+    })
+  }
+  componentDidMount() {
+    console.log('componentDidMount')
+    // 类似于mounted
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+  render() {
+    console.log('render')
+    return (
+      <>
+        <div>this is App</div>
+        <div>{this.state.count}</div>
+        <button onClick={this.clickHandler}>点我加一</button>
+        {this.state.flag ? <Test></Test> : null}
+      </>
+    )
+  }
+}
+```
