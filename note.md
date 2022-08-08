@@ -1733,3 +1733,34 @@ function App() {
 1. app组件会再次渲染 这个函数会再次执行  
 2. useState再次执行 得到的新的count值不是0 而是修改之后的1 模板会用新值渲染  
 重点一句话：useState初始值只在首次渲染生效后续只要调用setCount整个app中代码都会执行，此时的count每次拿到的都是最新值
+
+## 47、hook-useState-使用规则说明
+1. `useState`函数可以执行多次，每次执行相互独立，每调用一次为函数组件提供一个状态
+```
+import {useState} from 'react'
+
+function App() {
+  const [count,setCount] = useState(0)
+  const [flag, setFlag] = useState(true)
+  const [list, setList] = useState([])
+  function test() {
+    setCount(count + 1)
+    setFlag(false)
+    setList([1,2,3])
+  }
+  return (
+    <>
+      <div>count:{count}</div>
+      <div>flag:{flag}</div>
+      <ul>
+        <li>list</li>
+        {list.map(item => <li key={item}>{item}</li>)}
+      </ul>
+      <button onClick={test}>change</button>
+    </>
+  )
+}
+```
+2. 只能出现在函数组件中
+3. 不能嵌套在if/for/其他函数中(react按照hooks的调用顺序识别每一个hook)
+4. 可以通过开发者工具查看hook状态
