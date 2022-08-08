@@ -1802,3 +1802,40 @@ function App() {
   )
 }
 ```
+
+## 49、hook-useEffect-通过依赖项控制执行时机
+**依赖项控制副作用的执行时机**
+
+1. 默认状态（无依赖项）
+   - 组件初始化的时候先执行一次 等到每次数据修改组件更新再次执行
+2. 添加一个空数组依赖项
+   - 组件初始化的时候执行一次
+3. 依赖特定项
+   - 组件初始化的时候执行一次 依赖的特定项发生变化后会再次执行
+4. 注意事项
+   - 只要在useEffect回调函数中用到的数据状态就应该出现在依赖项数组中声明 否则可能会有bug
+
+```
+
+import {useState, useEffect} from 'react'
+// 在修改数据之后 把count值放到页面标题中
+// 1. 导入useEffect函数
+// 2. 在函数组件中执行 传入回调 并且定义副作用
+// 3. 当通过修改状态更新组件时，副作用也会不断执行
+
+function App() {
+  const [count,setCount] = useState(0)
+  const [name, setName] = useState('yi')
+  useEffect(() => {
+    console.log('我执行了')
+    document.title = count
+  }, [count])
+  return (
+    <>
+      <div>count:{count}</div>
+      <button onClick={() => setCount(count + 1)}>change</button>
+      <button onClick={() => setName('q')}>{name}</button>
+    </>
+  )
+}
+```

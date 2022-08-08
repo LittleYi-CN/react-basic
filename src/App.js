@@ -7,13 +7,16 @@ import {useState, useEffect} from 'react'
 
 function App() {
   const [count,setCount] = useState(0)
+  const [name, setName] = useState('yi')
   useEffect(() => {
+    console.log('我执行了')
     document.title = count
-  })
+  }, [count])
   return (
     <>
       <div>count:{count}</div>
       <button onClick={() => setCount(count + 1)}>change</button>
+      <button onClick={() => setName('q')}>{name}</button>
     </>
   )
 }
