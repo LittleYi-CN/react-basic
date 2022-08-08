@@ -1,24 +1,19 @@
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+// 在修改数据之后 把count值放到页面标题中
+// 1. 导入useEffect函数
+// 2. 在函数组件中执行 传入回调 并且定义副作用
+// 3. 当通过修改状态更新组件时，副作用也会不断执行
 
 function App() {
   const [count,setCount] = useState(0)
-  const [flag, setFlag] = useState(true)
-  const [list, setList] = useState([])
-  function test() {
-    setCount(count + 1)
-    setFlag(false)
-    setList([1,2,3])
-  }
+  useEffect(() => {
+    document.title = count
+  })
   return (
     <>
       <div>count:{count}</div>
-      <div>flag:{flag}</div>
-      <ul>
-        <li>list</li>
-        {list.map(item => <li key={item}>{item}</li>)}
-      </ul>
-      <button onClick={test}>change</button>
+      <button onClick={() => setCount(count + 1)}>change</button>
     </>
   )
 }

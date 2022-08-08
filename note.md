@@ -1764,3 +1764,41 @@ function App() {
 2. 只能出现在函数组件中
 3. 不能嵌套在if/for/其他函数中(react按照hooks的调用顺序识别每一个hook)
 4. 可以通过开发者工具查看hook状态
+
+## 48、hook-useEffect-理解副作用和具体使用
+> **什么是副作用？**  
+> 副作用是相对于主作用来说的，一个函数除了主作用，其他的作用就是副作用。对于React组件来说，**主作用是根据数据（state/props）渲染UI，**，除此之外都是副作用（比如，手动修改DOM）  
+
+**常见的副作用**  
+1. 数据请求ajax发送
+2. 手动修改dom
+3. localstorage操作  
+useEffect函数的作用就是为react函数组件提供副作用处理的。  
+
+**使用步骤**
+1. 导入`useEffect`函数
+2. 调用`useEffect`函数，并传入回调函数
+3. 在回调函数中编写副作用（dom操作）
+4. 修改数据状态
+5. 检测副作用是否生效
+```
+
+import {useState, useEffect} from 'react'
+// 在修改数据之后 把count值放到页面标题中
+// 1. 导入useEffect函数
+// 2. 在函数组件中执行 传入回调 并且定义副作用
+// 3. 当通过修改状态更新组件时，副作用也会不断执行
+
+function App() {
+  const [count,setCount] = useState(0)
+  useEffect(() => {
+    document.title = count
+  })
+  return (
+    <>
+      <div>count:{count}</div>
+      <button onClick={() => setCount(count + 1)}>change</button>
+    </>
+  )
+}
+```
