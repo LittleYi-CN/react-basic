@@ -1867,3 +1867,36 @@ export function useWindowScroll() {
   return [y]
 }
 ```
+
+## 50、hook阶段小练习-useLocalStorage
+新建useLocalStorage文件
+```
+import { useEffect, useState } from "react";
+
+export function useLocalStorage(key, defaultValue) {
+  const [message, setMessage] = useState(defaultValue);
+  useEffect(() => {
+    window.localStorage.setItem(key, message);
+  }, [message, key]);
+  return [message, setMessage];
+}
+```
+app.js导入
+```
+
+import {useLocalStorage} from './hook/useLocalStorage'
+
+function App() {
+  const [message, setMessage] = useLocalStorage('hook-key', 'yi')
+  setTimeout(() => {
+    setMessage('qi')
+  }, 5000);
+  return (
+    <>
+      <div>{message}</div>
+    </>
+  )
+}
+
+export default App
+```
