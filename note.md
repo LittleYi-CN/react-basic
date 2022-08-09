@@ -1839,3 +1839,31 @@ function App() {
   )
 }
 ```
+
+## 50、hook阶段小练习-useWindowScroll
+新建hook文件夹，新建useWindowScroll.js文件
+```
+import {useState} from 'react'
+
+export function useWindowScroll() {
+  const [y, setY] = useState(0)
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollTop
+    setY(h)
+  })
+  return [y]
+}
+```
+app.js导入
+```
+import {useState} from 'react'
+
+export function useWindowScroll() {
+  const [y, setY] = useState(0)
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollTop
+    setY(h)
+  })
+  return [y]
+}
+```
