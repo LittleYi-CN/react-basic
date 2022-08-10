@@ -2048,3 +2048,47 @@ function App() {
   )
 }
 ```
+
+## 55、hook-useContext使用
+**实现步骤**  
+1. 使用`createContext` 创建context对象
+2. 在顶层组件通过`Provider` 提供数据
+3. 在底层组件通过`useContext` 函数获取数据
+
+```
+import {createContext, useContext, useState} from 'react'
+
+const Context = createContext()
+
+
+function ComA() {
+  const count = useContext(Context)
+  return (
+    <>
+      <div>this is A</div>
+      app传过来的数据为： {count}
+      <ComC />
+    </>
+  )
+}
+
+function ComC() {
+  const count = useContext(Context)
+  return (
+    <>
+      <div>this is C</div>
+      app传过来的数据为： {count}
+    </>
+  )
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <Context.Provider value={count}>
+      <ComA />
+      <button onClick={() => setCount(count + 1)}>修改count值</button>
+    </Context.Provider>
+  )
+}
+```

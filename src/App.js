@@ -1,33 +1,36 @@
-import React, { useEffect, useRef } from "react"
+import {createContext, useContext, useState} from 'react'
 
-class TestC extends React.Component {
-  state = {
-    name: 'yi'
-  }
-  test = () => {
-    console.log('test')
-  }
-  render() {
-    return (
-      <>
-        <div>this is TestC</div>
-      </>
-    )
-  }
+const Context = createContext()
+
+
+function ComA() {
+  const count = useContext(Context)
+  return (
+    <>
+      <div>this is A</div>
+      app传过来的数据为： {count}
+      <ComC />
+    </>
+  )
+}
+
+function ComC() {
+  const count = useContext(Context)
+  return (
+    <>
+      <div>this is C</div>
+      app传过来的数据为： {count}
+    </>
+  )
 }
 
 function App() {
-  const testRef = useRef(null)
-  const h1Ref = useRef(null)
-  useEffect(() => {
-    console.log(testRef.current)
-    console.log(h1Ref.current)
-  })
+  const [count, setCount] = useState(0)
   return (
-    <>
-      <TestC ref={testRef} />
-      <h1 ref={h1Ref}>this is h1</h1>
-    </>
+    <Context.Provider value={count}>
+      <ComA />
+      <button onClick={() => setCount(count + 1)}>修改count值</button>
+    </Context.Provider>
   )
 }
 
