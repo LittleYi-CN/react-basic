@@ -2175,3 +2175,10 @@ function App() {
   )
 }
 ```
+
+## 58、react-router-路由模式组件说明
+### 核心组件 - BrowserRouter
+**作用**：包裹整个应用，一个react应用只需要使用一次  
+**两种常用Router**：`HashRouter`和`BrowserRouter`  
+**HashRouter**：使用URl的哈希值实现（http://localhost:3000/#/first）  
+**BrowserRouter**：使用H5的history.pushState API实现（http://localhost:3000/first）
