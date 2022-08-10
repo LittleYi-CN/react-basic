@@ -1,31 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react"
 
-function getDefaultValue() {
-  for(let i = 0; i < 10000; i++) {
-
-  }
-  return 10
-}
-
-function Counter(props) {
-  const [count, setCount] = useState(() => {
-    // 这里目的为了体现初始值通过一定的计算
-    // 这个计算比较广义的概念
-    // 只要无法直接确定 需要通过一定的操作才能获取 就可以理解为计算
-    return getDefaultValue()
-  })
+function Test() {
+  useEffect(() => {
+    let timer = setInterval(() => {
+      console.log('定时器执行了')
+    }, 1000);
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
   return (
     <>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
+      <div>this is test</div>
     </>
   )
 }
 
 function App() {
+  const [flag, setFlag] = useState(true)
   return (
     <>
-      <Counter count={10}/>
-      <Counter count={20}/>
+      {flag ? <Test /> : null}
+      <button onClick={() => setFlag(!flag)}>点击切换</button>
     </>
   )
 }

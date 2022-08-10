@@ -1938,3 +1938,47 @@ function App() {
 }
 
 ```
+
+## 52、hook-useEffect-清除副作用
+**使用场景**  
+在组件被销毁时，如果有些副作用操作需要被清理，就可以使用词语发，比如常见的定时器。  
+**语法及规则**
+```
+useEffect(() => {
+  console.log('副作用函数执行了')
+  <!-- 副作用函数的执行时机为：在下一次副作用函数执行之前执行 -->
+  return () => {
+    console.log('清理副作用的函数执行了')
+    <!-- 在这里写清理副作用的代码 -->
+  }
+})
+```
+```
+import { useEffect, useState } from "react"
+
+function Test() {
+  useEffect(() => {
+    let timer = setInterval(() => {
+      console.log('定时器执行了')
+    }, 1000);
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+  return (
+    <>
+      <div>this is test</div>
+    </>
+  )
+}
+
+function App() {
+  const [flag, setFlag] = useState(true)
+  return (
+    <>
+      {flag ? <Test /> : null}
+      <button onClick={() => setFlag(!flag)}>点击切换</button>
+    </>
+  )
+}
+```
