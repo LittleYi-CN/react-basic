@@ -1900,3 +1900,41 @@ function App() {
 
 export default App
 ```
+
+## 51、hook-useState-函数作为参数
+**使用场景**  
+参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始state需要通过计算才能获得，则可以传入一个函数，在函数中计算并返回初始的state，此函数只在初始渲染时被调用。
+```
+import { useState } from "react";
+
+function getDefaultValue() {
+  for(let i = 0; i < 10000; i++) {
+
+  }
+  return 10
+}
+
+function Counter(props) {
+  const [count, setCount] = useState(() => {
+    // 这里目的为了体现初始值通过一定的计算
+    // 这个计算比较广义的概念
+    // 只要无法直接确定 需要通过一定的操作才能获取 就可以理解为计算
+    return getDefaultValue()
+  })
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Counter count={10}/>
+      <Counter count={20}/>
+    </>
+  )
+}
+
+```
