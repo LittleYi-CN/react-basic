@@ -2182,3 +2182,20 @@ function App() {
 **两种常用Router**：`HashRouter`和`BrowserRouter`  
 **HashRouter**：使用URl的哈希值实现（http://localhost:3000/#/first）  
 **BrowserRouter**：使用H5的history.pushState API实现（http://localhost:3000/first）
+
+## 59、react-router-路由跳转和匹配组件说明
+### 核心组件 - Link
+**作用**：用于指定导航链接，完成路由跳转  
+**语法说明**：组件通过to属性指定路由地址，最终会渲染为a链接元素
+```
+<Link to="/path">页面一</Link>
+```
+### 核心组件 - Routes
+**作用**：提供一个路由出口，满足条件的路由组件会渲染到组件内部  
+### 核心组件 - Route
+**作用**：用于指定导航链接，完成路由匹配  
+**语法说明**：path属性指定匹配的路径地址，element属性指定要渲染的组件
+```
+// 当url路径为'/about'时，会渲染<About />组件
+<Route path="/about" element={<About />}></Route>
+```
