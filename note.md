@@ -2199,3 +2199,59 @@ function App() {
 // 当url路径为'/about'时，会渲染<About />组件
 <Route path="/about" element={<About />}></Route>
 ```
+
+## 60、react-router-编程式导航-实现跳转
+**作用**：通过js编程的方式进行路由页面跳转，比如从登录页跳转到关于页  
+**语法说明** ：
+1. 导入`useNavigate`钩子函数
+2. 执行钩子函数得到跳转函数
+3. 执行跳转函数完成跳转
+
+**注意**：如果在跳转时不想加历史记录，可以添加额外参数replace为true
+```
+import {useNavigate} from 'react-router-dom'
+
+function Login() {
+  const navigate = useNavigate()
+  // 跳转到关于页
+
+  function goAbout() {
+    navigate('/about', {replace: true})
+  }
+  return (
+    <div>
+      Login
+      <button onClick={goAbout}>跳转关于</button>
+    </div>
+  )
+}
+
+export default Login
+```
+```
+import About from "./About"
+import Home from "./Home"
+import Login from "./Login"
+// 进行路由配置
+import { BrowserRouter, Link, Routes, Route} from 'react-router-dom'
+
+function App() {
+  return (
+    // 声明当前要用一个非hash模式的路由
+    <BrowserRouter>
+      {/* 指定跳转的组件 to用来配置路由地址 */}
+      <Link to="/">首页</Link>
+      <Link to="/about">关于</Link>
+      {/* 路由出口 路由对应的组件会在这里进行渲染 */}
+      <Routes>
+        {/* 指定路径和组件的对应关系 path代表路径 element代表组件 成对出现 path -> element */}
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
+```
