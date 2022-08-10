@@ -1,28 +1,14 @@
-import { useEffect, useState } from "react"
-
-function Test() {
-  useEffect(() => {
-    let timer = setInterval(() => {
-      console.log('定时器执行了')
-    }, 1000);
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-  return (
-    <>
-      <div>this is test</div>
-    </>
-  )
-}
+import { useEffect } from "react"
 
 function App() {
-  const [flag, setFlag] = useState(true)
+  useEffect(() => {
+    function loadData() {
+      fetch('http://geek.itheima.net/v1_0/channels').then(res => res.json()).then(data => console.log(data))
+    }
+    loadData()
+  }, [])
   return (
-    <>
-      {flag ? <Test /> : null}
-      <button onClick={() => setFlag(!flag)}>点击切换</button>
-    </>
+    <></>
   )
 }
 

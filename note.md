@@ -1982,3 +1982,27 @@ function App() {
   )
 }
 ```
+
+## 53、hook-useEffect-发送网络请求
+**语法要求**  
+> 不可以直接在useEffect的回调函数外层直接包裹await，因为异步会导致清理函数无法立即返回
+
+**正确写法**
+> 在内部单独定义一个函数，然后把这个函数包装成同步
+
+```
+import { useEffect } from "react"
+
+function App() {
+  useEffect(() => {
+    function loadData() {
+      fetch('http://geek.itheima.net/v1_0/channels').then(res => res.json()).then(data => console.log(data))
+    }
+    loadData()
+  }, [])
+  return (
+    <></>
+  )
+}
+```
+
