@@ -2006,3 +2006,45 @@ function App() {
 }
 ```
 
+## 54、hook-useRef使用
+**使用场景**  
+在函数组件中获取真实dom元素对象或者的是组件对象  
+**使用步骤**
+1. 导入`useRef`函数
+2. 执行`useRef`函数并传入null，返回值为一个对象，内部有一个current属性存放拿到的dom对象（组件实例）
+3. 通过ref绑定 要获取的元素或者组件
+
+```
+import React, { useEffect, useRef } from "react"
+
+class TestC extends React.Component {
+  state = {
+    name: 'yi'
+  }
+  test = () => {
+    console.log('test')
+  }
+  render() {
+    return (
+      <>
+        <div>this is TestC</div>
+      </>
+    )
+  }
+}
+
+function App() {
+  const testRef = useRef(null)
+  const h1Ref = useRef(null)
+  useEffect(() => {
+    console.log(testRef.current)
+    console.log(h1Ref.current)
+  })
+  return (
+    <>
+      <TestC ref={testRef} />
+      <h1 ref={h1Ref}>this is h1</h1>
+    </>
+  )
+}
+```
