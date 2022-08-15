@@ -2472,3 +2472,26 @@ function Layout() {
 
 export default Layout
 ```
+
+## 64、react-router-默认二级路由配置
+默认路由 添加index属性 把自己的path干掉
+```
+function App() {
+  return (
+    <>
+      <div>App</div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* 定义二级路由嵌套 */}
+            {/* 默认路由 添加index属性 把自己的path干掉 */}
+            <Route index element={<Board />}></Route>
+            <Route path='article' element={<Article />}></Route>
+          </Route>
+          <Route path="/login" element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
+```

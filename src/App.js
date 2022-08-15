@@ -13,7 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* 定义二级路由嵌套 */}
-            <Route path='board' element={<Board />}></Route>
+            {/* 默认路由 添加index属性 把自己的path干掉 */}
+            <Route index element={<Board />}></Route>
             <Route path='article' element={<Article />}></Route>
           </Route>
           <Route path="/login" element={<Login />}></Route>
