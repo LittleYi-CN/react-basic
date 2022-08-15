@@ -2255,3 +2255,62 @@ function App() {
 
 export default App
 ```
+
+## 61、react-router-跳转传参-searchParams
+**传参**
+```
+navigate('/about?id=001')
+```
+```
+import {useNavigate} from 'react-router-dom'
+
+function Login() {
+  const navigate = useNavigate()
+  // 跳转到关于页
+
+  function goAbout() {
+    navigate('/about?id=1001&name=jack', {replace: true})
+  }
+  return (
+    <div>
+      Login
+      <button onClick={goAbout}>跳转关于</button>
+    </div>
+  )
+}
+```
+**取参**
+```
+let [params] = useSearchParams()
+let id = params.get('id')
+```
+```
+import { useSearchParams } from "react-router-dom";
+
+function About() {
+  const [params] = useSearchParams();
+  // params是一个对象 对象里有一个get方法
+  // 用来获取对应的参数
+  // 把参数的名称作为get方法的实参传过来
+  const id = params.get('id')
+  const name = params.get('name')
+  return (
+    <>
+      <div>About</div>
+      <div>参数为{id}</div>
+      <div>参数为{name}</div>
+    </>
+  );
+}
+```
+
+## 62、react-router-跳转传参-params
+**传参**
+```
+navigate('/about/1001')
+```
+**取参**
+```
+let [params] = useParams()
+let id = params.id
+```
