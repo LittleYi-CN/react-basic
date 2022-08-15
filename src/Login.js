@@ -5,7 +5,7 @@ function Login() {
   // 跳转到关于页
 
   function goAbout() {
-    navigate('/about?id=1001&name=jack', {replace: true})
+    navigate('/about/1001', {replace: true})
   }
   return (
     <div>
