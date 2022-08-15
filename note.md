@@ -2365,3 +2365,110 @@ function App() {
   )
 }
 ```
+
+## 63、react-router-嵌套路由实现
+1. 新建两个一级路由文件`Login.js`和`Layout.js`
+```
+function Login() {
+  return (
+    <>
+      <div>Login</div>
+    </>
+  )
+}
+
+export default Login
+```
+```
+function Layout() {
+  return (
+    <>
+      <div>Layout</div>
+    </>
+  )
+}
+
+export default Layout
+```
+2. `App.js`中引入定义路由所需要的`BrowserRouter, Routes, Route`,定义结构
+```
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import Layout from "./Layout"
+import Login from './Login'
+
+function App() {
+  return (
+    <>
+      <div>App</div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
+
+export default App
+```
+3. 新建两个二级路由文件`Board.js`和`Article.js`
+```
+function Board() {
+  return (
+    <>
+      <div>Board</div>
+    </>
+  )
+}
+
+export default Board
+```
+```
+function Article() {
+  return (
+    <>
+      <div>Article</div>
+    </>
+  )
+}
+
+export default Article
+```
+4. `App.js`中引入这两个二级路由，在Layout的Route下再新建Route
+```
+function App() {
+  return (
+    <>
+      <div>App</div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* 定义二级路由嵌套 */}
+            <Route path='board' element={<Board />}></Route>
+            <Route path='article' element={<Article />}></Route>
+          </Route>
+          <Route path="/login" element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
+```
+5. 在`Layout.js`中引入`Outlet`，定义二级路由出口
+```
+import { Outlet } from 'react-router-dom'
+
+function Layout() {
+  return (
+    <>
+      <div>Layout</div>
+      {/* 定义二级路由出口 */}
+      <Outlet />
+    </>
+  )
+}
+
+export default Layout
+```
