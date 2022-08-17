@@ -2495,3 +2495,41 @@ function App() {
   )
 }
 ```
+
+## 65、react-router-404页配置
+**场景**：当所有的路径都没有匹配的时候显示  
+**语法说明**：在各级路由的最后添加`*号路由`作为兜底  
+新建NotFound页面，app.js导入配置
+```
+function NotFound() {
+  return (
+    <>
+      sorry, this page is lost
+    </>
+  )
+}
+
+export default NotFound
+```
+```
+function App() {
+  return (
+    <>
+      <div>App</div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* 定义二级路由嵌套 */}
+            {/* 默认路由 添加index属性 把自己的path干掉 */}
+            <Route index element={<Board />}></Route>
+            <Route path='article' element={<Article />}></Route>
+          </Route>
+          <Route path="/login" element={<Login />}></Route>
+          {/* 当所有的路径都没有匹配时 做兜底匹配显示 未找到 */}
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
+```
