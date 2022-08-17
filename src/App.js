@@ -9,6 +9,13 @@ function App() {
       {counterStore.count}
       {/* 点击事件触发action函数修改count */}
       <button onClick={counterStore.addCount}>+</button>
+      <div>
+        {/* 使用计算属性 */}
+        <ul>
+         {counterStore.filterList.map((item) => (<li>{item}</li>))}
+        </ul>
+      </div>
+      <button onClick={counterStore.addList}>修改数组</button>
     </>
   )
 }

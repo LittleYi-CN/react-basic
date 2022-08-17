@@ -2604,3 +2604,67 @@ function App() {
 // 3. 包裹App
 export default observer(App)
 ```
+
+## 69、mobx-computed计算属性
+**实现步骤**
+1. 声明一个存在的数据
+2. 定义get计算属性
+3. 在makeAutoObservable方法中标记
+```
+// 编写第一个mobx store小案例
+import { computed, makeAutoObservable } from 'mobx'
+class CounterStore {
+  // 1. 定义数据
+  count = 0
+  // 定义一个原始数据 list
+  list = [1,2,3,4,5,6]
+  constructor() {
+    // 2. 把数据弄成响应式
+    makeAutoObservable(this, {
+      filterList: computed
+    })
+  }
+  // 3. 定义action函数（修改数据）
+  addCount = () => {
+    this.count ++
+  }
+  // 定义计算数据
+  get filterList() {
+    return this.list.filter(item => item > 2)
+  }
+  // 方法修改list
+  addList = () => {
+    this.list.push(7,8,9)
+  }
+}
+
+// 4. 实例化 然后导出给react使用
+const counterStore = new CounterStore()
+
+export { counterStore }
+```
+```
+// 1. 导入counterStore
+import {counterStore} from './store/counter'
+// 2. 引入中间件链接mobx和react完成响应式变化
+import {observer} from 'mobx-react-lite'
+function App() {
+  return (
+    <>
+      {/* 把store中的count渲染一下 */}
+      {counterStore.count}
+      {/* 点击事件触发action函数修改count */}
+      <button onClick={counterStore.addCount}>+</button>
+      <div>
+        {/* 使用计算属性 */}
+        <ul>
+         {counterStore.filterList.map((item) => (<li>{item}</li>))}
+        </ul>
+      </div>
+      <button onClick={counterStore.addList}>修改数组</button>
+    </>
+  )
+}
+// 3. 包裹App
+export default observer(App)
+```
