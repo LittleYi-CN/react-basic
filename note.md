@@ -2552,3 +2552,55 @@ function App() {
 npm install mobx mobx-react-lite --save
 ```
 新建store文件夹，新建counter.js
+
+## 68、mobx-第一个store
+**初始化mobx**  
+1. 定义数据状态
+2. 在构造器中实现数据响应式处理
+3. 定义action函数
+4. 实例化store并导出
+```
+// 编写第一个mobx store小案例
+import { makeAutoObservable } from 'mobx'
+class CounterStore {
+  // 1. 定义数据
+  count = 0
+  constructor() {
+    // 2. 把数据弄成响应式
+    makeAutoObservable(this)
+  }
+  // 3. 定义action函数（修改数据）
+  addCount = () => {
+    this.count ++
+  }
+}
+
+// 4. 实例化 然后导出给react使用
+const counterStore = new CounterStore()
+
+export { counterStore }
+```
+
+**React使用store**
+1. 在组件中导入`counterStore`实例对象
+2. 在组件中使用`counterStore`实例对象中的数据
+3. 通过事件调用修改数据的方法修改store中的数据
+4. 让组件响应数据变化
+```
+// 1. 导入counterStore
+import {counterStore} from './store/counter'
+// 2. 引入中间件链接mobx和react完成响应式变化
+import {observer} from 'mobx-react-lite'
+function App() {
+  return (
+    <>
+      {/* 把store中的count渲染一下 */}
+      {counterStore.count}
+      {/* 点击事件触发action函数修改count */}
+      <button onClick={counterStore.addCount}>+</button>
+    </>
+  )
+}
+// 3. 包裹App
+export default observer(App)
+```
