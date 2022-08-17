@@ -2541,3 +2541,14 @@ function App() {
 1. 简单-编写无模板的极简代码来精准描述意图(原生js)
 2. 轻松实现最优渲染-依赖自动追踪最小渲染优化
 3. 架构自由-可移植，可测试
+
+## 67、mobx-环境配置-配置说明
+1. 一个通过create-react-app创建好的react项目环境
+2. mobx本身
+3. 一个链接mox和react的中间部分
+
+安装mobx和mobx-react-lite
+```
+npm install mobx mobx-react-lite --save
+```
+新建store文件夹，新建counter.js
