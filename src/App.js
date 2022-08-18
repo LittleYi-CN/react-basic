@@ -1,21 +1,20 @@
-// 1. 导入counterStore
-import {counterStore} from './store/counter.Store'
+import { useStore } from './store'
 // 2. 引入中间件链接mobx和react完成响应式变化
 import {observer} from 'mobx-react-lite'
 function App() {
+  // 注意：解构赋值到store实例对象就可以了
+  // 防止破坏响应式 用哪个store就解构哪个store
+  const {counterStore, listStore} = useStore()
   return (
     <>
-      {/* 把store中的count渲染一下 */}
-      {counterStore.count}
-      {/* 点击事件触发action函数修改count */}
+      <div>{counterStore.count}</div>
       <button onClick={counterStore.addCount}>+</button>
+      <ul>
+        {listStore.list.map(item => <li key={item}>{item}</li>)}
+      </ul>
       <div>
-        {/* 使用计算属性 */}
-        <ul>
-         {counterStore.filterList.map((item) => (<li>{item}</li>))}
-        </ul>
+        <button onClick={listStore.addList}>增加课程</button>
       </div>
-      <button onClick={counterStore.addList}>修改数组</button>
     </>
   )
 }
