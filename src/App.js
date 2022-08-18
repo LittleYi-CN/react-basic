@@ -1,5 +1,5 @@
 // 1. 导入counterStore
-import {counterStore} from './store/counter'
+import {counterStore} from './store/counter.Store'
 // 2. 引入中间件链接mobx和react完成响应式变化
 import {observer} from 'mobx-react-lite'
 function App() {

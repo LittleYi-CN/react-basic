@@ -2668,3 +2668,83 @@ function App() {
 // 3. 包裹App
 export default observer(App)
 ```
+
+## 70、mobx-模块化-拆分子模块创建根模块
+1. 拆分Count和List模块，每个模块定义自己独立的state/actions
+2. 在store/index.js中导入拆分之后的模块，进行模块组合
+3. 使用React的useContext机制，导出useStore方法，供业务组件统一使用
+
+`counter.Store.js`
+```
+// 编写第一个mobx store小案例
+import { computed, makeAutoObservable } from 'mobx'
+class CounterStore {
+  // 1. 定义数据
+  count = 0
+  // 定义一个原始数据 list
+  list = [1,2,3,4,5,6]
+  constructor() {
+    // 2. 把数据弄成响应式
+    makeAutoObservable(this, {
+      filterList: computed
+    })
+  }
+  // 3. 定义action函数（修改数据）
+  addCount = () => {
+    this.count ++
+  }
+  // 定义计算数据
+  get filterList() {
+    return this.list.filter(item => item > 2)
+  }
+  // 方法修改list
+  addList = () => {
+    this.list.push(7,8,9)
+  }
+}
+
+// 4. 实例化 然后导出给react使用
+// const counterStore = new CounterStore()
+
+export { CounterStore }
+```
+`list.Store.js`
+```
+import { makeAutoObservable } from "mobx"
+
+
+class ListStore {
+  list = ['react', 'vue']
+  constructor() {
+    makeAutoObservable(this)
+  }
+
+  addList = () => {
+    this.list.push('angular')
+  }
+}
+
+export {ListStore}
+```
+`index.js`
+```
+// 组合子模块
+// 封装统一导出的供业务使用的方法
+import {ListStore} from './list.Store'
+import {CounterStore} from './counter.Store'
+
+// 1. 声明一个rootStore
+class RootStore {
+  constructor() {
+    // 对子模块进行实例化操作
+    // 将来实例化根Store时
+    // 根store又两个属性 分别时counterStore 和 listStore
+    // 各自对应的值 就是我们导入的子模块实例对象
+    this.counterStore = new CounterStore()
+    this.listStore = new ListStore()
+  }
+}
+
+// 实例化操作
+// 使用react context机制 完成统一方法封装
+```
