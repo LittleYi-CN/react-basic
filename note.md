@@ -2818,3 +2818,12 @@ export default observer(App)
    1. 维护性问题
 4. 如何实现mobx的模块化？
    1. 按照功能拆分store模块，根模块中组合子模块，利用`context`机制依赖注入
+
+## 73、mobx-mobx和react的职责划分
+- Store
+  - 业务状态数据
+  - 业务状态操作逻辑
+- React
+  - 渲染业务数据
+  - UI临时状态维护
+  - 事件触发，调用mobx
